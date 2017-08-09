@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+  <TextView
+      android:id="@+id/time_view"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentTop="true"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="0dp"
+      android:text=""
+      android:textAppearance="?android:attr/textAppearanceLarge"
+      android:textSize="92sp" />
+
+  <Button
+      android:id="@+id/start_button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/start"
+      android:layout_below="@+id/time_view"
+      android:layout_alignStart="@+id/stop_button" />
+  
+  <Button
+      android:id="@+id/stop_button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/start_button"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="10dp"
+      android:text="@string/stop" />
+
+  <Button
+      android:id="@+id/reset_button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/stop_button"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="10dp"
+      android:text="@string/reset" />
+  <Button
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Delete"
+      android:id="@+id/delete_Button"
+      android:onClick="deleteButtonClicked"
+      android:layout_marginTop="14dp"
+      android:layout_below="@+id/reset_button"
+      android:layout_alignStart="@+id/reset_button" />
+</RelativeLayout>
