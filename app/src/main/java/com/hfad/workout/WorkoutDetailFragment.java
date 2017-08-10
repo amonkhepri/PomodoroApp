@@ -1,7 +1,8 @@
 package com.hfad.workout;
 
 
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;

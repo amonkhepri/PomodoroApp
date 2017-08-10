@@ -3,9 +3,10 @@ package com.hfad.workout;
 import android.app.Activity;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 
 
-public class DetailActivity extends Activity {
+public class DetailActivity extends AppCompatActivity {
     public static final String EXTRA_WORKOUT_ID = "id";
 
     @Override
