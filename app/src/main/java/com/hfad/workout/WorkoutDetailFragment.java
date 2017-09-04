@@ -22,10 +22,11 @@ public class WorkoutDetailFragment extends Fragment {
     public void setWorkout(long id) {this.workoutId = id;}
     //saved amount of seconds
     int savedNumberOfseconds =4;
+    public int getSavedNumberOfseconds() { return savedNumberOfseconds;}
     //Context of this fragment for AsyncTask
     Context c;
 
-public int getSavedNumberOfseconds() { return savedNumberOfseconds;}
+
 
 @Override public void onActivityCreated(Bundle SavedInstanceState) {
         super.onActivityCreated(SavedInstanceState);
@@ -42,7 +43,7 @@ public int getSavedNumberOfseconds() { return savedNumberOfseconds;}
             ft.addToBackStack(null);
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             ft.commit();}}
-
+/**AsyncTask*/
 private class UpdateWorkoutTask extends AsyncTask<Integer, Void, Boolean> {
         //TODO Why is it here?
         ContentValues workoutValues;
@@ -72,12 +73,14 @@ private class UpdateWorkoutTask extends AsyncTask<Integer, Void, Boolean> {
             if (!success) {Toast toast = Toast.makeText(context,
                         "Database unavailable onPostExecute", Toast.LENGTH_SHORT);
                 toast.show();}}}
+/**End of Asynctask */
 
-@Override  public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    @Override  public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_workout_detail, container, false);}
 
-@Override public void onStart() {super.onStart(); View view = getView();
+
+    @Override public void onStart() {super.onStart(); View view = getView();
         c=getActivity().getApplicationContext();
         try {SQLiteOpenHelper WorkoutDatabaseHelper = new WorkoutDatabaseHelper(c);
             SQLiteDatabase db = WorkoutDatabaseHelper.getReadableDatabase();
@@ -86,15 +89,17 @@ private class UpdateWorkoutTask extends AsyncTask<Integer, Void, Boolean> {
                     "_id = ?",
                     new String[] {Long.toString(workoutId)},
                     null, null,null);
-/**Move to the first record in the Cursor*/if (cursor.moveToFirst()) {
+/**Move to the first record in the Cursor*/                if (cursor.moveToFirst()) {
 /*//Get the workout details from the cursor*/String nameText = cursor.getString(0);
                                       String descriptionText = cursor.getString(1);
-/* //Populate the workout name*/TextView name = (TextView)view.findViewById(R.id.textTitle);
+/* //Populate the workout name*/
+TextView name = (TextView)view.findViewById(R.id.textTitle);
                                          name.setText(nameText);
 //Populate the workout description
 TextView description = (TextView)view.findViewById(R.id.textDescription);
-                description.setText(descriptionText);
-            }}catch(SQLiteException e) {Toast toast = Toast.makeText(getActivity().
+         description.setText(descriptionText);
+            }}
+        catch(SQLiteException e) {Toast toast = Toast.makeText(getActivity().
            getApplication(),"Database unavailable close", Toast.LENGTH_SHORT);toast.show();}}
 
 @Override public void onSaveInstanceState(Bundle savedInstanceState) {

@@ -37,8 +37,7 @@ public class MainActivity extends AppCompatActivity
         else {
             Intent intent = new Intent(this, DetailActivity.class);
             intent.putExtra(DetailActivity.EXTRA_WORKOUT_ID, (int)id);
-            startActivity(intent);
-        }}}
+            startActivity(intent);}}}
 
 /**TODO
 * Save results after closing the app
