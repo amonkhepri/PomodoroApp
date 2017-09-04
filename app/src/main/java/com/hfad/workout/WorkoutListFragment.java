@@ -1,18 +1,9 @@
  package com.hfad.workout;
 
-
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.app.ListFragment;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.app.Activity;
-import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -20,11 +11,10 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.CursorAdapter;
 import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.SimpleCursorAdapter;
-import android.content.Intent;
 
+/*public class MainActivity extends AppCompatActivity
+implements WorkoutListFragment.WorkoutListListener { */
 
 public class WorkoutListFragment extends ListFragment {
 
@@ -46,14 +36,16 @@ public class WorkoutListFragment extends ListFragment {
         super.onCreate(savedInstanceState);
 
         try {
-            SQLiteOpenHelper WorkoutDatabaseHelper = new WorkoutDatabaseHelper(getActivity().getApplicationContext());
+            SQLiteOpenHelper WorkoutDatabaseHelper =
+                    new WorkoutDatabaseHelper(getActivity().getApplicationContext());
             db = WorkoutDatabaseHelper.getReadableDatabase();
 
             cursor = db.query("WORKOUT",
                     new String[]{"_id", "NAME"},
                     null, null, null, null, null);
 
-            CursorAdapter listAdapter = new SimpleCursorAdapter(getActivity().getApplicationContext(),
+            CursorAdapter listAdapter =
+                    new SimpleCursorAdapter(getActivity().getApplicationContext(),
                     android.R.layout.simple_list_item_1,
                     cursor,
                     new String[]{"NAME"},
@@ -61,7 +53,8 @@ public class WorkoutListFragment extends ListFragment {
                     0);
            setListAdapter(listAdapter);
         } catch(SQLiteException e) {
-            Toast toast = Toast.makeText(getActivity().getApplicationContext(), "Database unavailable", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getActivity().getApplicationContext(),
+                    "Database unavailable", Toast.LENGTH_SHORT);
             toast.show();}
     flag=true;
     }

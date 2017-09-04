@@ -1,11 +1,15 @@
 package com.hfad.workout;
 
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
+/*Used in
+*NewWorkout
+*StopwatchFragment
+*WorkoutDetailFragment
+*WorkoutDetailFragment.UpdateWorkoutTask
+*WorkoutListFragment*/
 class WorkoutDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "workout"; // the name of our database

@@ -1,21 +1,17 @@
 package com.hfad.workout;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentActivity;/**in MainActivity  intent.putExtra(DetailActivity.EXTRA_WORKOUT_ID, (int)id); */
+public class DetailActivity extends FragmentActivity {
 
-
-public class DetailActivity extends AppCompatActivity {
     public static final String EXTRA_WORKOUT_ID = "id";
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+@Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
         WorkoutDetailFragment workoutDetailFragment = (WorkoutDetailFragment)
                 getFragmentManager().findFragmentById(R.id.detail_frag);
+
         int workoutId = (int) getIntent().getExtras().get(EXTRA_WORKOUT_ID);
-        workoutDetailFragment.setWorkout(workoutId);
-    }
-}
+        workoutDetailFragment.setWorkout(workoutId);}}

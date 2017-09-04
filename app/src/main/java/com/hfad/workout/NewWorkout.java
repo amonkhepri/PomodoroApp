@@ -1,27 +1,15 @@
 package com.hfad.workout;
 
-
-
 import android.content.ContentValues;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
-import android.view.View;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CursorAdapter;
+import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import static com.hfad.workout.R.id.text2;
-
-
+/*used in MainActivity*/
 public class NewWorkout extends AppCompatActivity   {
 
 
@@ -51,16 +39,6 @@ public class NewWorkout extends AppCompatActivity   {
             workoutValues.put("DESCRIPTION", Description);
             db.insert("WORKOUT", null, workoutValues);
 
-
-
         } catch(SQLiteException e) {
             Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
-            toast.show();
-        }
-    }
-
-
-
-
-    }
-
+            toast.show();}}}
