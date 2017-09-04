@@ -1,7 +1,7 @@
 # PomodoroApp
 The idea is to create functional Pomodoro Aapp
 
-features:
+upcoming features:
 
 -rendering the phone unusable during the pomodoro session, except for the notepad connected to the task and emergency calls
 
