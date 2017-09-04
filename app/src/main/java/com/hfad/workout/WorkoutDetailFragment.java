@@ -18,8 +18,8 @@ import android.widget.Toast;
 /**WorkoutDetailFragment obj=new WorkoutDetailFragment();*/
 public class WorkoutDetailFragment extends Fragment {
     //
-    public long workoutId;
-    public void setWorkout(long id) {this.workoutId = id;}
+    public static long workoutId;
+    public static void setWorkout(long id) {workoutId = id;}
     //saved amount of seconds
     int savedNumberOfseconds =4;
     public int getSavedNumberOfseconds() { return savedNumberOfseconds;}

@@ -7,6 +7,8 @@ import android.view.View;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 
+import static com.hfad.workout.WorkoutDetailFragment.workoutId;
+
 public class MainActivity extends AppCompatActivity
                           implements WorkoutListFragment.WorkoutListListener {
 
@@ -36,13 +38,11 @@ public class MainActivity extends AppCompatActivity
             ft.commit();}
         else {
             Intent intent = new Intent(this, DetailActivity.class);
-            intent.putExtra(DetailActivity.EXTRA_WORKOUT_ID, (int)id);
+            WorkoutDetailFragment.setWorkout(workoutId);
             startActivity(intent);}}}
 
 /**TODO
 * Save results after closing the app
 * Adding/removing challenges
- *
- * Passing the workoutID is way too complicated, simplify it!
- * Right now it is MainActivity->DetailActivity->WorkoutDetailFragment
+
 * */

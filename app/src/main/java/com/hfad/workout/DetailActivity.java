@@ -1,7 +1,8 @@
 package com.hfad.workout;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;/**in MainActivity  intent.putExtra(DetailActivity.EXTRA_WORKOUT_ID, (int)id); */
+import android.support.v4.app.FragmentActivity;/**in MainActivity  intent.putExtra(DetailActivity.EXTRA_WORKOUT_ID, (int)id);
+        Intent intent = new Intent(this, DetailActivity.class);*/
 public class DetailActivity extends FragmentActivity {
 
     public static final String EXTRA_WORKOUT_ID = "id";
@@ -10,8 +11,4 @@ public class DetailActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        WorkoutDetailFragment workoutDetailFragment = (WorkoutDetailFragment)
-                getFragmentManager().findFragmentById(R.id.detail_frag);
-
-        int workoutId = (int) getIntent().getExtras().get(EXTRA_WORKOUT_ID);
-        workoutDetailFragment.setWorkout(workoutId);}}
+       }}

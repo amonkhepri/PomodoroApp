@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Button;
 import android.widget.Toast;
-/** StopwatchFragment stopwatchFragment = new StopwatchFragment();
+/** in WorkoutDetailFragment: StopwatchFragment stopwatchFragment = new StopwatchFragment();
 */
 public class StopwatchFragment extends Fragment implements View.OnClickListener {
     //Number of seconds displayed on the stopwatch.
