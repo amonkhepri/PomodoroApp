@@ -7,7 +7,7 @@ import android.view.View;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 
-import static com.hfad.workout.WorkoutDetailFragment.workoutId;
+
 
 public class MainActivity extends AppCompatActivity
                           implements WorkoutListFragment.WorkoutListListener {
@@ -38,11 +38,12 @@ public class MainActivity extends AppCompatActivity
             ft.commit();}
         else {
             Intent intent = new Intent(this, DetailActivity.class);
-            WorkoutDetailFragment.setWorkout(workoutId);
+            WorkoutDetailFragment.setWorkout(id);
             startActivity(intent);}}}
 
 /**TODO
 * Save results after closing the app
 * Adding/removing challenges
+ * * Make the the whole app more loosely coupled
 
 * */

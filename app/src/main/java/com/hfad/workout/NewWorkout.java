@@ -12,7 +12,6 @@ import android.widget.Toast;
 /*used in MainActivity*/
 public class NewWorkout extends AppCompatActivity   {
 
-
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_workout);
