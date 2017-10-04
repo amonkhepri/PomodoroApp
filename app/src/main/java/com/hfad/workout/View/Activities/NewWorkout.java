@@ -1,4 +1,4 @@
-package com.hfad.workout;
+package com.hfad.workout.View.Activities;
 
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,13 +9,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.hfad.workout.R;
+import com.hfad.workout.SQL.WorkoutDatabaseHelper;
+
+
 /*used in MainActivity*/
 public class NewWorkout extends AppCompatActivity   {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_workout);
-
     }
     public void addButtonClicked(View view){
         try {
@@ -27,8 +31,10 @@ public class NewWorkout extends AppCompatActivity   {
 
             EditText text1=(EditText) findViewById(R.id.user_Input);
             EditText text2=(EditText) findViewById(R.id.user_Input2);
+
             Name=text1.getText().toString();
             Description=text2.getText().toString();
+
             text1.setText("");
             text2.setText("");
 
@@ -40,4 +46,7 @@ public class NewWorkout extends AppCompatActivity   {
 
         } catch(SQLiteException e) {
             Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
-            toast.show();}}}
+            toast.show();
+        }
+    }
+}

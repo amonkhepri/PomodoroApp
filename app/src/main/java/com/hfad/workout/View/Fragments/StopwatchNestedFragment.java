@@ -1,7 +1,7 @@
-package com.hfad.workout;
+package com.hfad.workout.View.Fragments;
 
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -18,21 +18,32 @@ import android.widget.TextView;
 import android.widget.Button;
 import android.widget.Toast;
 
-import static com.hfad.workout.WorkoutDetailFragment.workoutId;
+import com.hfad.workout.Model.Workout;
+import com.hfad.workout.R;
+import com.hfad.workout.SQL.WorkoutDatabaseHelper;
 
+import java.util.ArrayList;
 
-/** in WorkoutDetailFragment: StopwatchFragment stopwatchFragment = new StopwatchFragment();
-*/
-public class StopwatchFragment extends Fragment implements View.OnClickListener {
-    //Number of seconds displayed on the stopwatch.
-
+/**Displays the time*/
+public class StopwatchNestedFragment extends Fragment implements View.OnClickListener {
+    //Number of seconds displayed on the stopwatch. Gets the data from database.
     private int seconds;
     //Is the stopwatch running?
     private boolean running;
-    private boolean wasRunning;
-    Context c;
+    private static boolean wasRunning;
 
-@Override public void onCreate(Bundle savedInstanceState) {super.onCreate(savedInstanceState);
+    private ArrayList<Workout> listWorkout;
+    private WorkoutDatabaseHelper databaseHelper;
+
+    public void setWorkoutId(int workoutId) {
+        this.workoutId = workoutId;
+    }
+
+    private int workoutId;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
 
     if (savedInstanceState != null) {
             seconds = savedInstanceState.getInt("seconds");
@@ -42,39 +53,45 @@ public class StopwatchFragment extends Fragment implements View.OnClickListener 
                 running = true;
 
             }}
-    c=getActivity().getApplicationContext();
-    new UpdateWorkoutTask().execute((int)workoutId);
-}
+    new UpdateWorkoutTask().execute(workoutId);/**TODO Comment*/
 
-@Override public void onStop() {
+    }
+
+@Override
+public void onStop() {
     super.onStop();
+  /**Get name column in order to navigate through database*/
+    TextView textTitle=(TextView) getView().getRootView().findViewById(R.id.textTitle);
+    String workoutName=textTitle.getText().toString();
 
-    View view=getView();
-    TextView text1=(TextView) view.getRootView().findViewById(R.id.textTitle);
-
-    String Name;
-    Name=text1.getText().toString();
-
-                        ContentValues workoutValues;
+    ContentValues workoutValues;
     workoutValues = new ContentValues();
+
     workoutValues.put("TIME", seconds);
 
-    String workoutName = Name;
-    SQLiteOpenHelper workoutDatabaseHelper =
-            new WorkoutDatabaseHelper(getActivity().getApplicationContext());
+    Toast toasty = Toast.makeText(getActivity().
+            getApplication(),workoutName, Toast.LENGTH_SHORT);
+    toasty.show();
+
+
+  SQLiteOpenHelper workoutDatabaseHelper =
+          new WorkoutDatabaseHelper(getActivity().getApplicationContext());
 
          try {
             SQLiteDatabase db = workoutDatabaseHelper.getWritableDatabase();
             db.update("WORKOUT", workoutValues, "NAME = ?", new String[] {workoutName});
             db.close();
 
-        } catch(SQLiteException e) {
+             } catch(SQLiteException e) {
             Toast toast = Toast.makeText(getActivity().getApplicationContext(),
-                    "Database unavailable", Toast.LENGTH_SHORT);
+                    "Database unavailable(StopwatchNestedFragment)", Toast.LENGTH_SHORT);
             toast.show();
-            e.printStackTrace();}}
+            e.printStackTrace();
+             }
+}
 
-    @Override  public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_stopwatch, container, false);
 
@@ -89,9 +106,11 @@ public class StopwatchFragment extends Fragment implements View.OnClickListener 
         Button deleteButton=(Button) layout.findViewById(R.id.delete_Button);
         deleteButton.setOnClickListener(this);
 
-        return layout;}
+        return layout;
+    }
 
     private void runTimer(View view) {
+
         final TextView timeView = (TextView) view.findViewById(R.id.time_view);
         final Handler handler = new Handler();
                       handler.post(new Runnable() {
@@ -107,47 +126,50 @@ public class StopwatchFragment extends Fragment implements View.OnClickListener 
                     seconds++;
                 }
                 handler.postDelayed(this, 1000);
-            }});}
+            }
+                      });
+    }
 
     private class UpdateWorkoutTask extends AsyncTask<Integer, Void, Boolean> {
 
         protected Boolean doInBackground(Integer... workouts) {
 
-            int workoutNo = workouts[0];
+            listWorkout=new ArrayList<>();
+            databaseHelper = new WorkoutDatabaseHelper(getActivity().
+                    getApplicationContext());
 
-            try {SQLiteOpenHelper WorkoutDatabaseHelper = new WorkoutDatabaseHelper(c);
-                SQLiteDatabase db = WorkoutDatabaseHelper.getWritableDatabase();
+            listWorkout.clear();
+            listWorkout.addAll(databaseHelper. getAllWorkout());
 
-                Cursor cursor = db.query("WORKOUT",
-                        new String[]{"TIME"},
-                        "_id = ?",
-                        new String[]{Integer.toString(workoutNo)},
-                        null, null, null);
+        // do what you need with the cursor here
 
-                /**Get the number of seconds from the cursor*/
-                if (cursor.moveToFirst()) {
-                    seconds = cursor.getInt(0);
-                    cursor.close();
-                    db.close();} return true;
-            }catch(SQLiteException e){
-             /*Toast toast = Toast.makeText(c, "Database unavailable", Toast.LENGTH_SHORT);
-             toast.show(); Can't post directly to UI thread*/ return false;}}
+        Workout work=listWorkout.get(workouts[0]);
+
+        seconds=work.getTime();
+
+            return true;
+        }
 
         protected void onPostExecute(Boolean success) {
-            if (!success) {Toast toast = Toast.makeText(c,
-                    "Database unavailable onPostExecute", Toast.LENGTH_SHORT);
-                toast.show();}}}
+            if (!success) {Toast toast = Toast.makeText(getActivity().getApplicationContext(),
+            "Database unavailable onPostExecute", Toast.LENGTH_SHORT);toast.show();}
+        }
+    }
 
-    @Override    public void onPause() { super.onPause(); wasRunning = running;}
+    @Override
+    public void onPause() { super.onPause(); wasRunning = running;}
 
-    @Override  public void onResume() { super.onResume();  if (wasRunning) { running = true;}}
+    @Override
+    public void onResume() { super.onResume();  if (wasRunning) { running = true;}}
 
-    @Override   public void onSaveInstanceState(Bundle savedInstanceState) {
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
         savedInstanceState.putInt("seconds", seconds);
         savedInstanceState.putBoolean("running", running);
         savedInstanceState.putBoolean("wasRunning", wasRunning);}
 
-    @Override   public void onClick(View v) {
+    @Override
+    public void onClick(View v) {
 
         switch (v.getId()) {
         case R.id.start_button:
@@ -162,29 +184,32 @@ public class StopwatchFragment extends Fragment implements View.OnClickListener 
             case R.id.delete_Button:
                 deleteButtonClicked(v);
                 break;
-        }}
+        }
+    }
 
-    public void onClickStart(View view) {
-        running = true;}
+    public void onClickStart(View view) { running = true;}
 
-    public void onClickStop(View view) {
-        running = false;}
+    public void onClickStop(View view) { running = false;}
 
-    public void onClickReset(View view) {
-        running = false;
-        seconds = 0;}
+    public void onClickReset(View view) { running = false;     seconds = 0;}
 
     public void deleteButtonClicked (View view){
         try {
-            SQLiteOpenHelper WorkoutDatabaseHelper = new WorkoutDatabaseHelper(getActivity().getApplicationContext());
+            SQLiteOpenHelper WorkoutDatabaseHelper =
+                    new WorkoutDatabaseHelper(getActivity().getApplicationContext());
             SQLiteDatabase db = WorkoutDatabaseHelper.getWritableDatabase();
 
             String Name;
             TextView text1=(TextView) view.getRootView().findViewById(R.id.textTitle);
             Name=text1.getText().toString();
+
             db.execSQL("DELETE FROM " +"WORKOUT" + " WHERE " + "NAME" + "=\"" + Name + "\";");
             db.close();
         } catch(SQLiteException e) {
-            Toast toast = Toast.makeText(getActivity().getApplicationContext(), "Database unavailable", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getActivity().getApplicationContext(),
+                    "Database unavailable", Toast.LENGTH_SHORT);
             toast.show();
-        }}}
+        }
+    }
+
+}

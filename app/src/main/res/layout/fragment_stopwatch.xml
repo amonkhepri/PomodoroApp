@@ -8,45 +8,45 @@
       android:id="@+id/time_view"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_alignParentTop="true"
-      android:layout_centerHorizontal="true"
-      android:layout_marginTop="0dp"
-      android:text=""
+      android:text="00:00:00"
       android:textAppearance="?android:attr/textAppearanceLarge"
-      android:textSize="92sp" />
+      android:textSize="92sp"
+      android:layout_alignParentTop="true"
+      android:layout_alignParentStart="true" />
 
   <Button
       android:id="@+id/start_button"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="@string/start"
+      android:layout_marginStart="85dp"
       android:layout_below="@+id/time_view"
-      android:layout_alignStart="@+id/stop_button" />
+      android:layout_alignParentStart="true" />
   
   <Button
       android:id="@+id/stop_button"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_below="@+id/start_button"
-      android:layout_centerHorizontal="true"
-      android:layout_marginTop="10dp"
-      android:text="@string/stop" />
+      android:text="@string/stop"
+      android:layout_alignBaseline="@+id/reset_button"
+      android:layout_alignBottom="@+id/reset_button"
+      android:layout_alignStart="@+id/start_button" />
 
   <Button
       android:id="@+id/reset_button"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_below="@+id/stop_button"
-      android:layout_centerHorizontal="true"
-      android:layout_marginTop="10dp"
-      android:text="@string/reset" />
+      android:text="@string/reset"
+      android:layout_marginTop="30dp"
+      android:layout_below="@+id/delete_Button"
+      android:layout_alignStart="@+id/delete_Button" />
   <Button
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="Delete"
       android:id="@+id/delete_Button"
       android:onClick="deleteButtonClicked"
-      android:layout_marginTop="14dp"
-      android:layout_below="@+id/reset_button"
-      android:layout_alignStart="@+id/reset_button" />
+      android:layout_marginStart="37dp"
+      android:layout_below="@+id/time_view"
+      android:layout_toEndOf="@+id/start_button" />
 </RelativeLayout>

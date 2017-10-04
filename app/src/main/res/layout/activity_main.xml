@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hfad.workout.MainActivity">
+    android:textColor="#000000"
+    tools:context="com.hfad.workout.View.Activities.MainActivity">
 
 
     <android.support.design.widget.FloatingActionButton
@@ -17,9 +18,20 @@
 
     <fragment
         android:id="@+id/list_frag"
-        class="com.hfad.workout.WorkoutListFragment"
+        class="com.hfad.workout.View.Fragments.WorkoutRecyclerFragment"
         android:layout_width="match_parent"
+        android:textColor="#000000"
         android:layout_height="match_parent" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_margin="@dimen/fab_margin"
+        app:layout_anchor="@+id/list_frag"
+        app:layout_anchorGravity="center_vertical|right"
+        app:srcCompat="@android:drawable/ic_input_add" />
 
 
 </android.support.design.widget.CoordinatorLayout>
