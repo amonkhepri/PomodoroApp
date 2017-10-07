@@ -1,27 +1,17 @@
 package com.hfad.workout.View.Fragments;
 
-import android.os.AsyncTask;
+
 import android.support.v4.app.Fragment;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.support.v4.app.FragmentTransaction;
-import android.widget.Toast;
-
 import com.hfad.workout.Model.Workout;
 import com.hfad.workout.R;
-import com.hfad.workout.SQL.WorkoutContract;
 import com.hfad.workout.SQL.WorkoutDatabaseHelper;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class WorkoutDetailFragment extends Fragment {
 
@@ -35,6 +25,7 @@ public class WorkoutDetailFragment extends Fragment {
                                         Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_workout_detail, container, false);
     }
+
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
@@ -65,11 +56,8 @@ public void onStart() {
     listWorkout=new ArrayList<>();
     databaseHelper = new WorkoutDatabaseHelper(this.getActivity().getApplicationContext());
 
-
             listWorkout.clear();
             listWorkout.addAll(databaseHelper. getAllWorkout());
-
-
                     // do what you need with the cursor here
                     View view = getView();
 
@@ -86,13 +74,5 @@ public void onStart() {
                     int time = work.getTime();
                     TextView seconds = (TextView) view.findViewById(R.id.time_view);
                     seconds.setText(Integer.toString(time));
-
-
-
-
-
-
-
 }
-
 }

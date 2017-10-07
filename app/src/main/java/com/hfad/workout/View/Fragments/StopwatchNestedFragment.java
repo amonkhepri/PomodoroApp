@@ -3,14 +3,13 @@ package com.hfad.workout.View.Fragments;
 
 import android.support.v4.app.Fragment;
 import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,10 +23,11 @@ import com.hfad.workout.SQL.WorkoutDatabaseHelper;
 
 import java.util.ArrayList;
 
-/**Displays the time*/
+/**Displays the time, all the buttons are handled here */
 public class StopwatchNestedFragment extends Fragment implements View.OnClickListener {
     //Number of seconds displayed on the stopwatch. Gets the data from database.
     private int seconds;
+    private static final String TAG = "MyActivity";
     //Is the stopwatch running?
     private boolean running;
     private static boolean wasRunning;
@@ -130,9 +130,9 @@ public void onStop() {
                       });
     }
 
-    private class UpdateWorkoutTask extends AsyncTask<Integer, Void, Boolean> {
+   public class UpdateWorkoutTask extends AsyncTask<Integer, Void, Boolean> {
 
-        protected Boolean doInBackground(Integer... workouts) {
+        public Boolean doInBackground(Integer... workouts) {
 
             listWorkout=new ArrayList<>();
             databaseHelper = new WorkoutDatabaseHelper(getActivity().
@@ -194,21 +194,41 @@ public void onStop() {
     public void onClickReset(View view) { running = false;     seconds = 0;}
 
     public void deleteButtonClicked (View view){
+
+        listWorkout=new ArrayList<>();
+        databaseHelper = new WorkoutDatabaseHelper(getActivity().
+                getApplicationContext());
+
+        listWorkout.clear();
+        listWorkout.addAll(databaseHelper. getAllWorkout());
+
+        // do what you need with the cursor here
+
+        Workout work=listWorkout.get(workoutId);
+
+        String id=Integer.toString(work.getId());
+
+
         try {
             SQLiteOpenHelper WorkoutDatabaseHelper =
                     new WorkoutDatabaseHelper(getActivity().getApplicationContext());
             SQLiteDatabase db = WorkoutDatabaseHelper.getWritableDatabase();
 
-            String Name;
-            TextView text1=(TextView) view.getRootView().findViewById(R.id.textTitle);
-            Name=text1.getText().toString();
-
-            db.execSQL("DELETE FROM " +"WORKOUT" + " WHERE " + "NAME" + "=\"" + Name + "\";");
+            Toast toasty = Toast.makeText(getActivity().getApplicationContext(),
+                    id, Toast.LENGTH_LONG);
+            toasty.show();
+            db.execSQL("DELETE FROM " +"WORKOUT" + " WHERE " + "_id" + "=\"" + id + "\";");
             db.close();
         } catch(SQLiteException e) {
-            Toast toast = Toast.makeText(getActivity().getApplicationContext(),
+
+
+            Log.e(TAG, "STACKTRACE");
+            Log.e(TAG, Log.getStackTraceString(e));
+
+           /* Toast toast = Toast.makeText(getActivity().getApplicationContext(),
                     "Database unavailable", Toast.LENGTH_SHORT);
-            toast.show();
+            e.printStackTrace();
+            toast.show();*/
         }
     }
 

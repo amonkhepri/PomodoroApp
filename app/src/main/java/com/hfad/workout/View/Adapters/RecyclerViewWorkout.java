@@ -13,7 +13,7 @@ import com.hfad.workout.R;
 
 import java.util.ArrayList;
 
-public class recyclerViewWorkout extends RecyclerView.Adapter<recyclerViewWorkout.ViewHolder> {
+public class RecyclerViewWorkout extends RecyclerView.Adapter<RecyclerViewWorkout.ViewHolder> {
 
 
 
@@ -27,7 +27,7 @@ public class recyclerViewWorkout extends RecyclerView.Adapter<recyclerViewWorkou
 
     final private ListItemClickListener mOnClickListener;
 
-    public recyclerViewWorkout(ArrayList<Workout> listWorkout, Context mContext, ListItemClickListener listener){
+    public RecyclerViewWorkout(ArrayList<Workout> listWorkout, Context mContext, ListItemClickListener listener){
         this.listWorkout = listWorkout;
         this.mContext = mContext;
         mOnClickListener=listener;
@@ -35,7 +35,7 @@ public class recyclerViewWorkout extends RecyclerView.Adapter<recyclerViewWorkou
 
 
     @Override
-    public recyclerViewWorkout.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerViewWorkout.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         CardView cv = (CardView) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.workout_item, parent, false);
         return new ViewHolder(cv);

@@ -8,6 +8,9 @@
     android:fitsSystemWindows="true"
     tools:context="com.hfad.workout.View.Fragments.WorkoutRecyclerFragment">
 
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerViewWorkout"
@@ -15,5 +18,7 @@
         android:layout_height="match_parent"
         android:scrollbars="vertical"
         android:layout_marginTop="?actionBarSize"/>
+</FrameLayout>
+
 
 </android.support.design.widget.CoordinatorLayout>

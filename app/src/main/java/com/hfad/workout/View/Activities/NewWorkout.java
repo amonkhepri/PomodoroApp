@@ -14,12 +14,16 @@ import com.hfad.workout.R;
 import com.hfad.workout.SQL.WorkoutDatabaseHelper;
 
 
+
 /*used in MainActivity*/
 public class NewWorkout extends AppCompatActivity   {
+
+
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_workout);
+
     }
     public void addButtonClicked(View view){
         try {
@@ -48,5 +52,6 @@ public class NewWorkout extends AppCompatActivity   {
             Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
             toast.show();
         }
+
     }
 }
