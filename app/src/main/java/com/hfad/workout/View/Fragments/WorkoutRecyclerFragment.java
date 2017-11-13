@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +18,13 @@ import com.hfad.workout.View.Activities.DetailActivity;
 import com.hfad.workout.View.Adapters.RecyclerViewWorkout;
 
 import com.hfad.workout.SQL.WorkoutDatabaseHelper;
+import com.hfad.workout.View.Adapters.helper.OnStartDragListener;
+import com.hfad.workout.View.Adapters.helper.SimpleItemTouchHelperCallback;
 
 import java.util.ArrayList;
 
 
-public class WorkoutRecyclerFragment extends Fragment implements RecyclerViewWorkout.ListItemClickListener {
+public class WorkoutRecyclerFragment extends Fragment implements RecyclerViewWorkout.ListItemClickListener, OnStartDragListener{
 
 
 
@@ -29,7 +32,7 @@ public class WorkoutRecyclerFragment extends Fragment implements RecyclerViewWor
     private RecyclerView recyclerView;
     private RecyclerViewWorkout recyclerViewWorkout;
     private WorkoutDatabaseHelper workoutDatabaseHelper;
-
+    private ItemTouchHelper mItemTouchHelper;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -37,7 +40,7 @@ public class WorkoutRecyclerFragment extends Fragment implements RecyclerViewWor
         View view= inflater.inflate(R.layout.fragment_recycler_list, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewWorkout);
         listWorkout = new ArrayList<>();
-        recyclerViewWorkout = new RecyclerViewWorkout(listWorkout, getActivity().getApplicationContext(),this);
+        recyclerViewWorkout = new RecyclerViewWorkout(listWorkout, getActivity().getApplicationContext(),this,this);
 
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -48,6 +51,10 @@ public class WorkoutRecyclerFragment extends Fragment implements RecyclerViewWor
 
         getDataFromSQLite();
 
+        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(recyclerViewWorkout);
+        mItemTouchHelper = new ItemTouchHelper(callback);
+        mItemTouchHelper.attachToRecyclerView(recyclerView);
+
 
         return view;
     }
@@ -57,21 +64,17 @@ public class WorkoutRecyclerFragment extends Fragment implements RecyclerViewWor
         super.onResume();
        getDataFromSQLite();
     }
-/**
-     * This method is to initialize objects to be used
-     */
-
 
     /**
      * This method is to fetch all user records from SQLite
      */
     private void getDataFromSQLite() {
-        // AsyncTask is used that SQLite operation not blocks the UI Thread.
+        // AsyncTask is used so that SQLite operation does not block the UI Thread.
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
                 listWorkout.clear();
-                listWorkout.addAll(workoutDatabaseHelper. getAllWorkout());
+                listWorkout.addAll(workoutDatabaseHelper.getAllWorkoutData());
                 return null;
             }
 
@@ -108,5 +111,10 @@ public class WorkoutRecyclerFragment extends Fragment implements RecyclerViewWor
             intent.putExtra("NUMBER_OF_WORKOUT",string);
             startActivity(intent);
 
+    }
+
+    @Override
+    public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
+     mItemTouchHelper.startDrag(viewHolder);
     }
 }

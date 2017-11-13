@@ -9,7 +9,7 @@ public class Workout {
     private int id;
     private String name;
     private String description;
-    private int time;
+    private Integer time;
 
     public int getTime() {
         return time;

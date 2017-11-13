@@ -57,7 +57,7 @@ public void onStart() {
     databaseHelper = new WorkoutDatabaseHelper(this.getActivity().getApplicationContext());
 
             listWorkout.clear();
-            listWorkout.addAll(databaseHelper. getAllWorkout());
+            listWorkout.addAll(databaseHelper.getAllWorkoutData());
                     // do what you need with the cursor here
                     View view = getView();
 

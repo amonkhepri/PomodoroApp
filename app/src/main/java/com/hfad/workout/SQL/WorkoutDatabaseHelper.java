@@ -18,7 +18,7 @@ import java.util.List;
 public class WorkoutDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "workout"; // the name of our database
-    private static final int DB_VERSION = 8; // the version of the database
+    private static final int DB_VERSION = 11; // the version of the database
 
     public WorkoutDatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -38,11 +38,11 @@ public class WorkoutDatabaseHelper extends SQLiteOpenHelper {
     private void updateMyDatabase(SQLiteDatabase db, int oldVersion, int newVersion) {
         /*if (oldVersion < 3) {*/
             db.execSQL("CREATE TABLE IF NOT EXISTS WORKOUT (_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                    + "NAME TEXT, "
-                    + "DESCRIPTION TEXT"
-                    + "TIME NUMERIC);) "
+                    + " NAME TEXT, "
+                    + " DESCRIPTION TEXT, "
+                    + " TIME INTEGER );"
                    );
-            insertWorkout(db, "Latte", "Espresso and steamed milk");
+           insertWorkout(db, "Latte", "Espresso and steamed milk");
             insertWorkout(db, "Cappuccino", "Espresso, hot milk and steamed-milk foam"
                    );
 
@@ -59,7 +59,7 @@ public class WorkoutDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public List<Workout> getAllWorkout() {
+    public List<Workout> getAllWorkoutData() {
         // array of columns to fetch
         String[] columns = {
                 WorkoutContract.WorkoutEntry._ID,

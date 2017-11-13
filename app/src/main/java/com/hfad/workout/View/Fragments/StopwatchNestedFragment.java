@@ -83,10 +83,9 @@ public void onStop() {
             db.close();
 
              } catch(SQLiteException e) {
-            Toast toast = Toast.makeText(getActivity().getApplicationContext(),
-                    "Database unavailable(StopwatchNestedFragment)", Toast.LENGTH_SHORT);
-            toast.show();
-            e.printStackTrace();
+            Log.e(TAG,"STACKTRACE");
+             Log.e(TAG,Log.getStackTraceString(e));
+             e.printStackTrace();
              }
 }
 
@@ -139,7 +138,7 @@ public void onStop() {
                     getApplicationContext());
 
             listWorkout.clear();
-            listWorkout.addAll(databaseHelper. getAllWorkout());
+            listWorkout.addAll(databaseHelper.getAllWorkoutData());
 
         // do what you need with the cursor here
 
@@ -200,7 +199,7 @@ public void onStop() {
                 getApplicationContext());
 
         listWorkout.clear();
-        listWorkout.addAll(databaseHelper. getAllWorkout());
+        listWorkout.addAll(databaseHelper.getAllWorkoutData());
 
         // do what you need with the cursor here
 
@@ -220,15 +219,8 @@ public void onStop() {
             db.execSQL("DELETE FROM " +"WORKOUT" + " WHERE " + "_id" + "=\"" + id + "\";");
             db.close();
         } catch(SQLiteException e) {
-
-
             Log.e(TAG, "STACKTRACE");
             Log.e(TAG, Log.getStackTraceString(e));
-
-           /* Toast toast = Toast.makeText(getActivity().getApplicationContext(),
-                    "Database unavailable", Toast.LENGTH_SHORT);
-            e.printStackTrace();
-            toast.show();*/
         }
     }
 

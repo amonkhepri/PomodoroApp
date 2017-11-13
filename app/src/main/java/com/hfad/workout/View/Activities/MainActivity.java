@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity                           {
 
 
     }
-
+//From previous version of the app, should probably delete it
    /* @Override
     public void itemClicked(long id) {
         View fragmentContainer = findViewById(R.id.fragment_container);
