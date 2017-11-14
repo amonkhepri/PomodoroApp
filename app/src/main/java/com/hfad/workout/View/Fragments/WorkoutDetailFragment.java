@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.support.v4.app.FragmentTransaction;
-import com.hfad.workout.Model.Workout;
+import com.hfad.workout.SQL.Model.Workout;
 import com.hfad.workout.R;
 import com.hfad.workout.SQL.WorkoutDatabaseHelper;
 import java.util.ArrayList;

@@ -31,7 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hfad.workout.SQL.WorkoutDatabaseHelper;
-
+//A handy class for analysing database during pre-release phase
 public class AndroidDatabaseManager extends Activity implements OnItemClickListener {
 
 //a static class to save cursor,table values etc which is used by functions to share data in the program.

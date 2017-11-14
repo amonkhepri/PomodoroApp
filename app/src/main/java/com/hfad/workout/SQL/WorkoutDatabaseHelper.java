@@ -8,9 +8,8 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.hfad.workout.Model.Workout;
+import com.hfad.workout.SQL.Model.Workout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,11 +41,9 @@ public class WorkoutDatabaseHelper extends SQLiteOpenHelper {
                     + " DESCRIPTION TEXT, "
                     + " TIME INTEGER );"
                    );
-           insertWorkout(db, "Latte", "Espresso and steamed milk");
-            insertWorkout(db, "Cappuccino", "Espresso, hot milk and steamed-milk foam"
-                   );
+            insertWorkout(db, "Programming", "10 hours a day");
+            insertWorkout(db, "Guitar playing", "5 hours a day" );
 
-        insertWorkout(db, "Filter", "Our best drip coffee");
     }
 
     private static void insertWorkout(SQLiteDatabase db, String name,

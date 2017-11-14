@@ -12,14 +12,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.hfad.workout.Model.Workout;
+import com.hfad.workout.SQL.Model.Workout;
 import com.hfad.workout.R;
 import com.hfad.workout.View.Activities.DetailActivity;
 import com.hfad.workout.View.Adapters.RecyclerViewWorkout;
 
 import com.hfad.workout.SQL.WorkoutDatabaseHelper;
-import com.hfad.workout.View.Adapters.helper.OnStartDragListener;
-import com.hfad.workout.View.Adapters.helper.SimpleItemTouchHelperCallback;
+import com.hfad.workout.View.Adapters.TouchHelpers.OnStartDragListener;
+import com.hfad.workout.View.Adapters.TouchHelpers.SimpleItemTouchHelperCallback;
 
 import java.util.ArrayList;
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.hfad.workout.View.Adapters.helper;
+package com.hfad.workout.View.Adapters.TouchHelpers;
 
 import android.support.v7.widget.helper.ItemTouchHelper;
 

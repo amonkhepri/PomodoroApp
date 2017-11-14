@@ -17,7 +17,7 @@ import android.widget.TextView;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.hfad.workout.Model.Workout;
+import com.hfad.workout.SQL.Model.Workout;
 import com.hfad.workout.R;
 import com.hfad.workout.SQL.WorkoutDatabaseHelper;
 

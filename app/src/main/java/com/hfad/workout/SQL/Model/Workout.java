@@ -1,4 +1,4 @@
-package com.hfad.workout.Model;
+package com.hfad.workout.SQL.Model;
 
 /**
  * Created by sirth on 21/09/2017.

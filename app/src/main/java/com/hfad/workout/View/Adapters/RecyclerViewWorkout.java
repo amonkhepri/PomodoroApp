@@ -10,11 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.hfad.workout.Model.Workout;
+import com.hfad.workout.SQL.Model.Workout;
 import com.hfad.workout.R;
-import com.hfad.workout.View.Adapters.helper.ItemTouchHelperAdapter;
-import com.hfad.workout.View.Adapters.helper.ItemTouchHelperViewHolder;
-import com.hfad.workout.View.Adapters.helper.OnStartDragListener;
+import com.hfad.workout.View.Adapters.TouchHelpers.ItemTouchHelperAdapter;
+import com.hfad.workout.View.Adapters.TouchHelpers.ItemTouchHelperViewHolder;
+import com.hfad.workout.View.Adapters.TouchHelpers.OnStartDragListener;
 
 import java.util.ArrayList;
 import java.util.Collections;

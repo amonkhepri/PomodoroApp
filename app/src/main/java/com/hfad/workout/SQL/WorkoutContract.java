@@ -3,7 +3,7 @@ package com.hfad.workout.SQL;
 import android.provider.BaseColumns;
 
 /**
- * Created by delaroy on 5/11/17.
+ Helper class for working with SQLite database
  */
 public class WorkoutContract {
 
