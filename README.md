@@ -1,4 +1,4 @@
-# PomodoroApp
+# License
 Copyright 2017 Amunratis
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,9 +15,7 @@ limitations under the License.
 
 
 
-Even though this project doesn't seem much right now the goal is to produce a featurerich productivity time and money management app.
-
-Upcoming features:
+# Upcoming features:
 
 -Time tracking similar to SaveMyTime. Each time the phone is unlocked there will be drawn a panel over the screen where the user is asked what she/he has been doing recently. The user can later check how much time do they spend on their activities thorought the day.
 
@@ -31,7 +29,12 @@ Upcoming features:
 
 -working witch google callendar content provider
 
-Feel free to suggest features, post issues/commit code/ and/or leave a donation for the development
+
+
+
+# Motivation
+
+As you might have seen this project is in it's earliest stages of development but the goal is quite ambitious, the end product shall be a featurerich productivity time and money management app. Feel free to suggest features, post issues/commit code/ and/or leave a donation for the development
 
 sirthesurfer@gmail.com
 
