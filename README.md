@@ -39,9 +39,13 @@ As you might have seen this project is in it's earliest stages of development bu
 sirthesurfer@gmail.com
 
 Bitcoin       1Jien6Fq8kfyrnjLu59vcCzQn5UfYYf8Li
+
 Bitcoin Cash  1GgUL8r4cW5CztC1JyTFCb79ZpEcfajxV1
+
 Lisk          1551778302656766396L
+
 Litecoin      LVKx6qs79UtyXotNkKzGoKhPyP6nBQ4oZ9
+
 Dash          XykqvUs1DknG5xscLEA1nZGcLk1M8Nmopi
 
 
