@@ -29,6 +29,8 @@ limitations under the License.
 
 -working witch google callendar content provider
 
+-It should also have working windows/linux/mac clients and web client
+
 
 
 
