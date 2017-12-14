@@ -21,7 +21,7 @@ limitations under the License.
 
 -Persistent alarms like in Alarmy + featuring dream journal + money penalty for not getting up (half an hour from the moment of getting up you'll have to prove with your mobile GPS that you are away at least 500 m from your home and thus awake, or something like that) There will also be money rewards Perhaps app should have it's own ERC20 token that would be rewarded to people sticking to their goals/habits?
    
-   *Sunset/Sunrise feature. Rise and shine 20 minutes just before the sunset so you could admire it and be happy because you've got whole day ahead you. Go out for a stroll before the Sunrise.
+   *Sunset/Sunrise feature. Rise and shine 20 minutes just before the sunrise so you could admire it and be happy because you've got whole day ahead you. Go out for a stroll before the Sunset.
 
 -Social feature just like in runkeeper/Edomondo, it will also have a fully funtional chat app
 
