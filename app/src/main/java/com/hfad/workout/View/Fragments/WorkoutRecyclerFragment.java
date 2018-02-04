@@ -47,7 +47,8 @@ public class WorkoutRecyclerFragment extends Fragment implements RecyclerViewWor
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(recyclerViewWorkout);
-        workoutDatabaseHelper = new WorkoutDatabaseHelper(this.getActivity().getApplicationContext());
+        workoutDatabaseHelper = new WorkoutDatabaseHelper
+                (this.getActivity().getApplicationContext());
 
         getDataFromSQLite();
 

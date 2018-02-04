@@ -1,6 +1,5 @@
 package com.hfad.workout.View.Activities;
 
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -17,10 +16,10 @@ public class MainActivity extends AppCompatActivity                           {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        FloatingActionButton fabDbManager = (FloatingActionButton) findViewById(R.id.fabDbmanager);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        FloatingActionButton fab2 = (FloatingActionButton) findViewById(R.id.fabio);
 
-        fab2.setOnClickListener(new View.OnClickListener() {
+        fab.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -28,18 +27,21 @@ public class MainActivity extends AppCompatActivity                           {
                 startActivity(intent);}
         });
 
-        fab.setOnClickListener(new View.OnClickListener() {
+        fabDbManager.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                Intent dbmanager = new Intent(getApplicationContext(),AndroidDatabaseManager.class);
-                startActivity(dbmanager);
+                Intent dbManagerActivity = new Intent(getApplicationContext(), AndroidDatabaseManager.class);
+                startActivity(dbManagerActivity);
             }
         });}
 
 
 
     }
-//From previous version of the app, should probably delete it
+//TODO From previous version of the app, should probably delete it..OR use it
+// instead of my overcomplicated WorkoutDetailFragment, or perhaps the previous implenentation
+//was overcomplicated and that's why I decided to do this way? Couldn't say now.
+
    /* @Override
     public void itemClicked(long id) {
         View fragmentContainer = findViewById(R.id.fragment_container);
@@ -59,6 +61,3 @@ public class MainActivity extends AppCompatActivity                           {
     }*/
 
 
-/**TODO
-
-* */

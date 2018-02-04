@@ -18,20 +18,32 @@ import com.hfad.workout.View.Adapters.TouchHelpers.OnStartDragListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
+//TODO how does this adapter differ from drawer adapter
+
 
 public class RecyclerViewWorkout extends RecyclerView.Adapter<RecyclerViewWorkout.ViewHolder>
-        implements ItemTouchHelperAdapter
-    {
+        implements ItemTouchHelperAdapter{
 
+        public interface ListItemClickListener{
+            void onListItemClick(int clickedItemIndex);
+        }
 
-Drawable drawable;
-
-    private ArrayList<Workout> listWorkout;
-
+        private ArrayList<Workout> listWorkout;
         private final OnStartDragListener mDragStartListener;
+        final private ListItemClickListener mOnClickListener;
+        private Context mContext;//TODO simplify it
+        Drawable drawable;
 
-    private Context mContext;//TODO simplify it
+        // CONSTRUCTOR  //
+        public RecyclerViewWorkout(ArrayList<Workout> listWorkout, Context mContext, ListItemClickListener listener,OnStartDragListener dragStartListener) {
+            this.listWorkout = listWorkout;
+            this.mContext = mContext;
+            mOnClickListener = listener;
+            mDragStartListener = dragStartListener;
+        }
+        // CONSTRUCTOR  //
 
+        ///////////////////////////////////////////////////////////////////////////////////
         @Override
         public boolean onItemMove(int fromPosition, int toPosition) {
             Collections.swap(listWorkout, fromPosition, toPosition);
@@ -46,39 +58,40 @@ Drawable drawable;
 
         }
 
-    public interface ListItemClickListener{
-        void onListItemClick(int clickedItemIndex);
-    }
+        //////////////////////////////////////////////////////////////////////////////////
 
-    final private ListItemClickListener mOnClickListener;
+        /***/
+        @Override
+        public RecyclerViewWorkout.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-    public RecyclerViewWorkout(ArrayList<Workout> listWorkout, Context mContext, ListItemClickListener listener,OnStartDragListener dragStartListener){
-        this.listWorkout = listWorkout;
-        this.mContext = mContext;
-        mOnClickListener=listener;
-        mDragStartListener = dragStartListener;
-    }
-
-
-    @Override
-    public RecyclerViewWorkout.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        CardView cv = (CardView) LayoutInflater.from(parent.getContext())
+        CardView cardview = (CardView) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.workout_item, parent, false);
-        return new ViewHolder(cv);
-    }
+        return new ViewHolder(cardview);
+        }
 
-    @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
-        CardView cardView = holder.cardView;
+        @Override
+        public void onBindViewHolder(ViewHolder holder, final int position) {
 
-        TextView name = (TextView)cardView.findViewById(R.id._name);
-        name.setText(listWorkout.get(position).getName());
+            CardView cardView = holder.cardView;
 
-        TextView description = (TextView)cardView.findViewById(R.id._description);
-        description.setText(listWorkout.get(position).getDescription());
-    }
+            TextView name = (TextView)cardView.findViewById(R.id._name);
+                     name.setText(listWorkout.get(position).getName());
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, ItemTouchHelperViewHolder {
+            TextView description = (TextView)cardView.findViewById(R.id._description);
+                     description.setText(listWorkout.get(position).getDescription());
+        }
+
+        @Override
+        public int getItemCount() {
+            return listWorkout.size();
+        }
+        /***/
+
+
+
+
+    public class ViewHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener, ItemTouchHelperViewHolder {
 
         private CardView cardView;
 
@@ -108,9 +121,5 @@ Drawable drawable;
         }
     }
 
-    @Override
-    public int getItemCount() {
-        return listWorkout.size();
-    }
-    //TODO how does this adapter differ from drawer adapter
+
 }

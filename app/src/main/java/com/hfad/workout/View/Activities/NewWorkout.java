@@ -15,16 +15,15 @@ import com.hfad.workout.SQL.WorkoutDatabaseHelper;
 
 
 
-/*used in MainActivity*/
+/*An Activity Used to create new Workouts*/
 public class NewWorkout extends AppCompatActivity   {
-
-
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_workout);
 
     }
+
     public void addButtonClicked(View view){
         try {
             SQLiteOpenHelper WorkoutDatabaseHelper = new WorkoutDatabaseHelper(this);
@@ -33,14 +32,14 @@ public class NewWorkout extends AppCompatActivity   {
             String Name;
             String Description;
 
-            EditText text1=(EditText) findViewById(R.id.user_Input);
-            EditText text2=(EditText) findViewById(R.id.user_Input2);
+            EditText name=(EditText) findViewById(R.id.user_Input);
+            EditText description=(EditText) findViewById(R.id.user_Input2);
 
-            Name=text1.getText().toString();
-            Description=text2.getText().toString();
+            Name=name.getText().toString();
+            Description=description.getText().toString();
 
-            text1.setText("");
-            text2.setText("");
+            name.setText("");
+            description.setText("");
 
 
             ContentValues workoutValues = new ContentValues();

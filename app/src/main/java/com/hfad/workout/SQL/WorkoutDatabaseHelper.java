@@ -41,6 +41,7 @@ public class WorkoutDatabaseHelper extends SQLiteOpenHelper {
                     + " DESCRIPTION TEXT, "
                     + " TIME INTEGER );"
                    );
+            //Some initially programmed data
             insertWorkout(db, "Programming", "10 hours a day");
             insertWorkout(db, "Guitar playing", "5 hours a day" );
 
@@ -85,14 +86,12 @@ public class WorkoutDatabaseHelper extends SQLiteOpenHelper {
         // Traversing through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
-                Workout workout = new Workout();
+                Workout workout = new Workout(); //TODO Had some issues here, wonder why? Anyway, it works again after reverting changes.
                 workout.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(WorkoutContract.WorkoutEntry._ID))));
                 workout.setName(cursor.getString(cursor.getColumnIndex(WorkoutContract.WorkoutEntry.COLUMN_WORKOUT_NAME)));
                 workout.setDescription(cursor.getString(cursor.getColumnIndex(WorkoutContract.WorkoutEntry.COLUMN_WORKOUT_DESCRIPTION)));
                 workout.setTime(cursor.getInt(cursor.getColumnIndex(WorkoutContract.WorkoutEntry.COLUMN_WORKOUT_TIME)));
                 // Adding user record to list
-
-
                 workoutList.add(workout);
             } while (cursor.moveToNext());
         }
@@ -109,41 +108,40 @@ public class WorkoutDatabaseHelper extends SQLiteOpenHelper {
         String[] columns = new String[] { "message" };
         //an array list of cursor to save two cursors one has results from the query
         //other cursor stores error message if any errors are triggered
-        ArrayList<Cursor> alc = new ArrayList<Cursor>(2);
-        MatrixCursor Cursor2= new MatrixCursor(columns);
-        alc.add(null);
-        alc.add(null);
+        ArrayList<Cursor> ArrayListCursor = new ArrayList<Cursor>(2);
+        MatrixCursor matrixCursor= new MatrixCursor(columns);
+        ArrayListCursor.add(null);
+        ArrayListCursor.add(null);
 
         try{
             String maxQuery = Query ;
             //execute the query results will be save in Cursor c
-            Cursor c = sqlDB.rawQuery(maxQuery, null);
+            Cursor cursorQuery = sqlDB.rawQuery(maxQuery, null);
 
-            //add value to cursor2
-            Cursor2.addRow(new Object[] { "Success" });
+            matrixCursor.addRow(new Object[] { "Success" });
 
-            alc.set(1,Cursor2);
-            if (null != c && c.getCount() > 0) {
+            ArrayListCursor.set(1,matrixCursor);
+            if (null != cursorQuery && cursorQuery.getCount() > 0) {
 
-                alc.set(0,c);
-                c.moveToFirst();
+                ArrayListCursor.set(0,cursorQuery);
+                cursorQuery.moveToFirst();
 
-                return alc ;
+                return ArrayListCursor ;
             }
-            return alc;
+            return ArrayListCursor;
         } catch(SQLException sqlEx){
             Log.d("printing exception", sqlEx.getMessage());
             //if any exceptions are triggered save the error message to cursor an return the arraylist
-            Cursor2.addRow(new Object[] { ""+sqlEx.getMessage() });
-            alc.set(1,Cursor2);
-            return alc;
-        } catch(Exception ex){
-            Log.d("printing exception", ex.getMessage());
+            matrixCursor.addRow(new Object[] { ""+sqlEx.getMessage() });
+            ArrayListCursor.set(1,matrixCursor);
+            return ArrayListCursor;
+        } catch(Exception exception){
+            Log.d("printing exception", exception.getMessage());
 
-            //if any exceptions are triggered save the error message to cursor an return the arraylist
-            Cursor2.addRow(new Object[] { ""+ex.getMessage() });
-            alc.set(1,Cursor2);
-            return alc;
+            //if any exceptions are triggered save the error message to cursor and return the arrayList
+            matrixCursor.addRow(new Object[] { ""+exception.getMessage() });
+            ArrayListCursor.set(1,matrixCursor);
+            return ArrayListCursor;
         }
     }
 
