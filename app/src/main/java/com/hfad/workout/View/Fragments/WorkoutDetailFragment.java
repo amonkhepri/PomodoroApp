@@ -16,63 +16,69 @@ import java.util.ArrayList;
 public class WorkoutDetailFragment extends Fragment {
 
     public WorkoutDetailFragment(){}
-    private int workoutId;
-    private ArrayList<Workout> listWorkout;
-    private WorkoutDatabaseHelper databaseHelper;
+    private int globalWorkoutId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                        Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_workout_detail, container, false);
     }
 
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-        savedInstanceState.putInt("workoutId", workoutId);
+        savedInstanceState.putInt("globalWorkoutId", globalWorkoutId);
     }
 
-@Override
-public void onCreate(Bundle savedInstanceState){
-    super.onCreate(savedInstanceState);
 
-    String workout=getActivity().getIntent().getStringExtra("NUMBER_OF_WORKOUT");
-    workoutId=Integer.valueOf(workout);
+    @Override
 
-    if (savedInstanceState != null) {
-            workoutId = savedInstanceState.getInt("workoutId");}
-        else
-            { FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+
+        String workout=getActivity().getIntent().getStringExtra("NUMBER_OF_WORKOUT");
+        globalWorkoutId =Integer.valueOf(workout);
+
+        if (savedInstanceState != null) {
+            globalWorkoutId = savedInstanceState.getInt("globalWorkoutId");
+        }
+        else{
+            FragmentTransaction ft = getChildFragmentManager().beginTransaction();
             StopwatchNestedFragment stopwatchNestedFragment = new StopwatchNestedFragment();
-            stopwatchNestedFragment.setWorkoutId(workoutId);
+            stopwatchNestedFragment.setWorkoutId(globalWorkoutId);
             ft.replace(R.id.stopwatch_container, stopwatchNestedFragment);
             ft.addToBackStack(null);
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-            ft.commit();}
-}
-@Override
-public void onStart() {
-    super.onStart();
-    listWorkout=new ArrayList<>();
-    databaseHelper = new WorkoutDatabaseHelper(this.getActivity().getApplicationContext());
+            ft.commit();
+        }
 
-            listWorkout.clear();
-            listWorkout.addAll(databaseHelper.getAllWorkoutData());
-                    // do what you need with the cursor here
-                    View view = getView();
+    }
 
-                    Workout work=listWorkout.get(workoutId);
+    @Override
+    public void onStart() {
+        super.onStart();
+        ArrayList<Workout> listWorkout;
+        listWorkout=new ArrayList<>();
+        listWorkout.clear();
+        WorkoutDatabaseHelper databaseHelper;
+        databaseHelper = new WorkoutDatabaseHelper(this.getActivity().getApplicationContext());
+        listWorkout.addAll(databaseHelper.getAllWorkoutData());
 
-                    String nameText = work.getName();
-                    TextView name = (TextView) view.findViewById(R.id.textTitle);
-                    name.setText(nameText);
+        Workout work=listWorkout.get(globalWorkoutId);
+        View view = getView();
 
-                    String descriptionText = work.getDescription();
-                    TextView description = (TextView) view.findViewById(R.id.textDescription);
-                    description.setText(descriptionText);
+        String nameText = work.getName();
+        TextView name = (TextView) view.findViewById(R.id.textTitle);
+                 name.setText(nameText);
 
-                    int time = work.getTime();
-                    TextView seconds = (TextView) view.findViewById(R.id.time_view);
-                    seconds.setText(Integer.toString(time));
-}
+        String descriptionText = work.getDescription();
+        TextView description = (TextView) view.findViewById(R.id.textDescription);
+                 description.setText(descriptionText);
+
+        Integer time = work.getTime();
+        TextView seconds = (TextView) view.findViewById(R.id.time_view);
+                 seconds.setText(Integer.toString(time));
+
+    }
+
 }

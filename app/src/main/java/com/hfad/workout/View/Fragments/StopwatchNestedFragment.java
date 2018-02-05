@@ -83,7 +83,7 @@ public void onStop() {
             db.close();
 
              } catch(SQLiteException e) {
-            Log.e(TAG,"STACKTRACE");
+             Log.e(TAG,"STACKTRACE");
              Log.e(TAG,Log.getStackTraceString(e));
              e.printStackTrace();
              }
@@ -156,16 +156,19 @@ public void onStop() {
     }
 
     @Override
-    public void onPause() { super.onPause(); wasRunning = running;}
+    public void onPause() { super.onPause(); wasRunning = running;
+    }
 
     @Override
-    public void onResume() { super.onResume();  if (wasRunning) { running = true;}}
+    public void onResume() { super.onResume();  if (wasRunning) { running = true;}
+    }
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         savedInstanceState.putInt("seconds", seconds);
         savedInstanceState.putBoolean("running", running);
-        savedInstanceState.putBoolean("wasRunning", wasRunning);}
+        savedInstanceState.putBoolean("wasRunning", wasRunning);
+    }
 
     @Override
     public void onClick(View v) {
@@ -205,7 +208,7 @@ public void onStop() {
 
         Workout work=listWorkout.get(workoutId);
 
-        String id=Integer.toString(work.getId());
+        String workoutID=Integer.toString(work.getId());
 
 
         try {
@@ -214,9 +217,9 @@ public void onStop() {
             SQLiteDatabase db = WorkoutDatabaseHelper.getWritableDatabase();
 
             Toast toasty = Toast.makeText(getActivity().getApplicationContext(),
-                    id, Toast.LENGTH_LONG);
+                    workoutID, Toast.LENGTH_LONG);
             toasty.show();
-            db.execSQL("DELETE FROM " +"WORKOUT" + " WHERE " + "_id" + "=\"" + id + "\";");
+            db.execSQL("DELETE FROM " +"WORKOUT" + " WHERE " + "_id" + "=\"" + workoutID + "\";");
             db.close();
         } catch(SQLiteException e) {
             Log.e(TAG, "STACKTRACE");

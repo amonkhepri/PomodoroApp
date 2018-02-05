@@ -24,80 +24,75 @@ import com.hfad.workout.View.Adapters.TouchHelpers.SimpleItemTouchHelperCallback
 import java.util.ArrayList;
 
 
-public class WorkoutRecyclerFragment extends Fragment implements RecyclerViewWorkout.ListItemClickListener, OnStartDragListener{
+public class WorkoutRecyclerFragment extends Fragment
+        implements RecyclerViewWorkout.ListItemClickListener, OnStartDragListener{
 
 
 
-    private ArrayList<Workout> listWorkout;
-    private RecyclerView recyclerView;
-    private RecyclerViewWorkout recyclerViewWorkout;
-    private WorkoutDatabaseHelper workoutDatabaseHelper;
-    private ItemTouchHelper mItemTouchHelper;
+    private ArrayList<Workout> globalListWorkout;
+    private RecyclerViewWorkout globalRecyclerViewWorkout;
+    private WorkoutDatabaseHelper globalWorkoutDatabaseHelper;
+    private ItemTouchHelper globalMItemTouchHelper;
+    /*Regular fragment methods*/
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view= inflater.inflate(R.layout.fragment_recycler_list, container, false);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewWorkout);
-        listWorkout = new ArrayList<>();
-        recyclerViewWorkout = new RecyclerViewWorkout(listWorkout, getActivity().getApplicationContext(),this,this);
+        RecyclerView recyclerViewWorkout;
+        View fragmentRecyclerListView= inflater.inflate(R.layout.fragment_recycler_list, container, false);
+        recyclerViewWorkout = (RecyclerView) fragmentRecyclerListView.
+                findViewById(R.id.recyclerViewWorkout);
 
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(recyclerViewWorkout);
-        workoutDatabaseHelper = new WorkoutDatabaseHelper
+        globalListWorkout = new ArrayList<>();
+
+        globalRecyclerViewWorkout = new RecyclerViewWorkout(globalListWorkout,
+                getActivity().getApplicationContext(),this,this);
+
+        LinearLayoutManager mLayoutManager =
+                new LinearLayoutManager(getActivity().getApplicationContext());
+
+        recyclerViewWorkout.setLayoutManager(mLayoutManager);
+        recyclerViewWorkout.setItemAnimator(new DefaultItemAnimator());
+        recyclerViewWorkout.setHasFixedSize(true);
+        recyclerViewWorkout.setAdapter(globalRecyclerViewWorkout);
+        globalWorkoutDatabaseHelper = new WorkoutDatabaseHelper
                 (this.getActivity().getApplicationContext());
 
         getDataFromSQLite();
 
-        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(recyclerViewWorkout);
-        mItemTouchHelper = new ItemTouchHelper(callback);
-        mItemTouchHelper.attachToRecyclerView(recyclerView);
+        ItemTouchHelper.Callback callback =
+                new SimpleItemTouchHelperCallback(globalRecyclerViewWorkout);
+        globalMItemTouchHelper = new ItemTouchHelper(callback);
+        globalMItemTouchHelper.attachToRecyclerView(recyclerViewWorkout);
 
 
-        return view;
+        return fragmentRecyclerListView;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-       getDataFromSQLite();
+        /*This method is to fetch all user records from SQLite */
+        getDataFromSQLite();
     }
 
-    /**
-     * This method is to fetch all user records from SQLite
-     */
-    private void getDataFromSQLite() {
-        // AsyncTask is used so that SQLite operation does not block the UI Thread.
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... params) {
-                listWorkout.clear();
-                listWorkout.addAll(workoutDatabaseHelper.getAllWorkoutData());
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
-                recyclerViewWorkout.notifyDataSetChanged();
-            }
-        }.execute();
+    /*Overriding interface methods*/
+    @Override
+    public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
+        globalMItemTouchHelper.startDrag(viewHolder);
     }
 
-/**Read the click in order to open respective fragment and read data
- * Currently it opens only the timeView. Name and Description are empty.*/
+    /*TODO Read the click on RecyclerViewWorkout in order to open respective
+     fragment and read data Currently it opens only the timeView. Name and
+      Description are empty.*/
     @Override
     public void onListItemClick(int clickedItemIndex){
 
-        String string =String.valueOf(clickedItemIndex);
+        String clickedItem =String.valueOf(clickedItemIndex);
+        /*TODO that's a previous implementation, explore whether if what I did is an improvement
+         View view=getView();
 
-
-        /* View view=getView();
-
-       View fragmentContainer = view.findViewById(R.id.fragment_container);
+        View fragmentContainer = view.findViewById(R.id.fragment_container);
         if (fragmentContainer != null) {
 
             WorkoutDetailFragment details = new WorkoutDetailFragment();
@@ -108,14 +103,34 @@ public class WorkoutRecyclerFragment extends Fragment implements RecyclerViewWor
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             ft.commit();}
         else {*/
-            Intent intent = new Intent(getActivity(), DetailActivity.class);
-            intent.putExtra("NUMBER_OF_WORKOUT",string);
-            startActivity(intent);
+        Intent intent = new Intent(getActivity(), DetailActivity.class);
+        intent.putExtra("NUMBER_OF_WORKOUT",clickedItem);
+        startActivity(intent);
 
     }
+    /** This method is to fetch all user records from SQLite*/
+       private void getDataFromSQLite() {
+        // AsyncTask is used so that SQLite operation does not block the UI Thread.
+        //TODO Explore events about which lint speaks where leaks occur
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... params) {
+                globalListWorkout.clear();
+                globalListWorkout.addAll(globalWorkoutDatabaseHelper.getAllWorkoutData());
+                return null;
+            }
 
-    @Override
-    public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
-     mItemTouchHelper.startDrag(viewHolder);
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                globalRecyclerViewWorkout.notifyDataSetChanged();
+            }
+        }.execute();
     }
+
+
+
+
+
+
 }

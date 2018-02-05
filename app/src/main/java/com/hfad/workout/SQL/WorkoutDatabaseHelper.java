@@ -34,6 +34,7 @@ public class WorkoutDatabaseHelper extends SQLiteOpenHelper {
         updateMyDatabase(db, oldVersion, newVersion);
     }
 
+    //TODO WorkoutDataBaseHelper oldVersion and newVersion aren't used, should I just remove them?
     private void updateMyDatabase(SQLiteDatabase db, int oldVersion, int newVersion) {
         /*if (oldVersion < 3) {*/
             db.execSQL("CREATE TABLE IF NOT EXISTS WORKOUT (_id INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -54,7 +55,6 @@ public class WorkoutDatabaseHelper extends SQLiteOpenHelper {
         workoutValues.put("DESCRIPTION", description);
         workoutValues.put("TIME",3);
         db.insert("WORKOUT", null, workoutValues);
-
     }
 
     public List<Workout> getAllWorkoutData() {
@@ -87,10 +87,14 @@ public class WorkoutDatabaseHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 Workout workout = new Workout(); //TODO Had some issues here, wonder why? Anyway, it works again after reverting changes.
-                workout.setId(Integer.parseInt(cursor.getString(cursor.getColumnIndex(WorkoutContract.WorkoutEntry._ID))));
-                workout.setName(cursor.getString(cursor.getColumnIndex(WorkoutContract.WorkoutEntry.COLUMN_WORKOUT_NAME)));
-                workout.setDescription(cursor.getString(cursor.getColumnIndex(WorkoutContract.WorkoutEntry.COLUMN_WORKOUT_DESCRIPTION)));
-                workout.setTime(cursor.getInt(cursor.getColumnIndex(WorkoutContract.WorkoutEntry.COLUMN_WORKOUT_TIME)));
+                workout.setId(Integer.parseInt(cursor.
+                        getString(cursor.getColumnIndex(WorkoutContract.WorkoutEntry._ID))));
+                workout.setName(cursor.getString(cursor.
+                        getColumnIndex(WorkoutContract.WorkoutEntry.COLUMN_WORKOUT_NAME)));
+                workout.setDescription(cursor.getString(cursor.
+                        getColumnIndex(WorkoutContract.WorkoutEntry.COLUMN_WORKOUT_DESCRIPTION)));
+                workout.setTime(cursor.getInt(cursor
+                        .getColumnIndex(WorkoutContract.WorkoutEntry.COLUMN_WORKOUT_TIME)));
                 // Adding user record to list
                 workoutList.add(workout);
             } while (cursor.moveToNext());
