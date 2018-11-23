@@ -37,20 +37,15 @@ limitations under the License.
 
 
 # Motivation
+http://humanetech.com
 
-As you might have seen this project is in it's earliest stages of development but the goal is quite ambitious, the end product shall be a featurerich productivity time and money management app. Feel free to suggest features, post issues/commit code/ and/or leave a donation for the development
+"Technology is hijacking our minds and society.
 
-sirthesurfer@gmail.com
+Our world-class team of deeply concerned former tech insiders and CEOs intimately understands the culture, business incentives, design techniques, and organizational structures driving how technology hijacks our minds.
 
-Bitcoin       1Jien6Fq8kfyrnjLu59vcCzQn5UfYYf8Li
+Since 2013, we’ve raised awareness of the problem within tech companies and for millions of people through broad media attention, convened top industry executives, and advised political leaders. Building on this start, we are advancing thoughtful solutions to change the system."
 
-Bitcoin Cash  1GgUL8r4cW5CztC1JyTFCb79ZpEcfajxV1
-
-Lisk          1551778302656766396L
-
-Litecoin      LVKx6qs79UtyXotNkKzGoKhPyP6nBQ4oZ9
-
-Dash          XykqvUs1DknG5xscLEA1nZGcLk1M8Nmopi
+As you might have seen this project is in it's earliest stages of development but the goal is quite ambitious, the end product shall be a featurerich productivity time and money management app. Feel free to suggest features, post issues/commit code.
 
 
 
